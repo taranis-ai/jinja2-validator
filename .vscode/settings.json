@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "jinja2-validator"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
