@@ -8,13 +8,13 @@ authors = [
 license = {text = "MIT"}
 dependencies = [
     "jinja2>=3.0",
-    "pytest>=7.4.4",
 ]
 requires-python = ">=3.7"
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.4.4",
+    "ruff>=0.4.0",
 ]
 
 [build-system]
