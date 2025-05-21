@@ -1,0 +1,37 @@
+name: Publish Python Package to PyPI
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Trigger on version tags like v0.1.0, v1.2.3, etc.
+
+jobs:
+  build-and-publish:
+    name: Build and publish Python 🐍 distributions 📦 to PyPI
+    runs-on: ubuntu-latest
+    # These permissions are necessary for trusted publishing
+    permissions:
+      id-token: write # Allow the job to request an OpenID Connect (OIDC) token
+      contents: read  # Allow the job to check out the repository
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' # You can choose any Python version >=3.7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v1
+        with:
+          version: 'latest' # Or pin to a specific uv version
+
+      - name: Build package
+        run: uv build --sdist --wheel -o dist/
+
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        # This action will automatically use trusted publishing if configured on PyPI.
+        # No explicit API token is needed here if trusted publishing is set up.
